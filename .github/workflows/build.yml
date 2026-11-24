@@ -1,0 +1,18 @@
+name: Build mod
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: geode-sdk/build-geode-mod@main
+        id: build
+        with:
+          sdk: latest
+          build-config: RelWithDebInfo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: predictive-input-mod
+          path: ${{ steps.build.outputs.build-output }}
